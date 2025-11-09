@@ -9,5 +9,5 @@ CREATE TABLE users (
 INSERT INTO users (nama, posisi, nomor_punggung, negara) VALUES
 ('Mohamed Salah', 'Forward', 11, 'Mesir'),
 ('Virgil van Dijk', 'Defender', 4, 'Belanda'),
-('Alisson Becker', 'Goalkeeper', 1, 'Brasil');
+
 ;
