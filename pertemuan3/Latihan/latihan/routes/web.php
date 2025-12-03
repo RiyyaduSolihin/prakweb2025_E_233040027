@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/home', function () {
+    return view('home');
+});
+
+Route::get('/layout', function () {
+    return view('layout');
+});
 
 // Route untuk memanggil method di PostController
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
