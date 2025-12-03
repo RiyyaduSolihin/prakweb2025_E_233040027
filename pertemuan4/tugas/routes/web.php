@@ -57,6 +57,21 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardPostController::class, 'index'])->name('dashboard');
 });
 
+// Route untuk dashboard posts - hanya untuk yang sudah login
+// Index : Menampilkan semua posts milik user
+Route::get('/dashboard', [DashboardPostController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard.index');
+
+// Create : Form untuk membuat post baru
+Route::get('/dashboard/create', [DashboardPostController::class, 'create'])->middleware(['auth', 'verified'])->name('dashboard.create');
+
+// Store : Menyimpan post baru
+Route::post('/dashboard/posts', [DashboardPostController::class, 'store'])->middleware(['auth', 'verified'])->name('dashboard.store');
+
+// Show : Menampilkan detail post berdasarkan slug
+Route::get('/dashboard/posts/{slug}', [DashboardPostController::class, 'show'])->middleware(['auth', 'verified'])->name('dashboard.show');
+
+
+
 // Route logout – hanya untuk yang sudah login
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 

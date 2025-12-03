@@ -9,12 +9,21 @@ class DashboardPostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+   public function index()
     {
-        return view('index', [
-            'title' => 'Dashboard'
-        ]);
+        // menggunakan user_id dari user yang sedang login
+        $posts = Post::where('user_id', auth()->user()->id);
+
+        // fitur search
+        if (request('search')) {
+            $posts->where('title', 'Like', '%' . request('search') . '%');
+        }
+
+        // menampilkan 5 data per halaman dengan pagination
+        return view('dashboard.index', ['posts' => $posts->paginate(5)->withQueryString()]);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
