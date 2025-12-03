@@ -2,6 +2,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostController;
@@ -51,6 +52,10 @@ Route::post('/register', [RegisterController::class, 'register'])->middleware('g
 // Route untuk login – middleware guest
 Route::get('/login', [LoginController::class, 'showLoginForm'])->middleware('guest')->name('login');
 Route::post('/login', [LoginController::class, 'login'])->middleware('guest');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardPostController::class, 'index'])->name('dashboard');
+});
 
 // Route logout – hanya untuk yang sudah login
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
