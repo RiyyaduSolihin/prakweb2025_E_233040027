@@ -47,6 +47,7 @@ class DashboardPostController extends Controller
     public function show(string $id)
     {
         //
+        return view('dashboard.show',['post' => $post]);
     }
 
     /**
