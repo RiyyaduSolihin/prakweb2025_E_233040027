@@ -28,18 +28,49 @@ class DashboardPostController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
+
+    /*
+ * Show the form for creating a new resource.
+ */
+public function create()
+{
+    // Ambil semua categories
+    $categories = Category::all();
+
+    return view('dashboard.create', compact('categories'));
+}
+
+/*
+ * Store a newly created resource in storage.
+ */
+public function store(Request $request)
+{
+    // Generate slug dari title
+    $slug = Str::slug($request->title);
+
+    // Pastikan slug unique - jika sudah ada, tambahkan angka di belakang
+    $originalSlug = $slug;
+    $count = 1;
+
+    while (Post::where('slug', $slug)->exists()) {
+        $slug = $originalSlug . '-' . $count;
+        $count++;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    // Create post
+    Post::create([
+        'title' => $request->title,
+        'slug' => $slug,
+        'category_id' => $request->category_id,
+        'excerpt' => $request->excerpt,
+        'body' => $request->body,
+        'user_id' => auth()->user()->id,
+    ]);
+
+    return redirect()->route('dashboard.index')->with('success', 'Post created successfully!');
+}
+
+
 
     /**
      * Display the specified resource.
