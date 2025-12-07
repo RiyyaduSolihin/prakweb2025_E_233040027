@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->timestamps();
+            $table->string('name');
+            $table->string('slug')->unique();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      */

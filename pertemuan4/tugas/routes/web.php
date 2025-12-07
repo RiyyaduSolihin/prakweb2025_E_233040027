@@ -1,12 +1,14 @@
 
 <?php
 
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardCategoryController;
 use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
+
 
 // contoh route untuk menampilkan view
 Route::get('/', function () {
@@ -35,6 +37,19 @@ Route::get('/categories', function () {
 Route::get('/welcome', function () {
     return view('welcome');
 });
+
+
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard.dashboard');
+    });
+
+    Route::resource('/dashboard/categories', CategoryController::class);
+    Route::resource('/dashboard/posts', DashboardPostController::class);
+});
+
 
 
 // Route untuk memanggil method di PostController

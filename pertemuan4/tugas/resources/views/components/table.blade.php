@@ -89,6 +89,7 @@
                 <th scope="col" class="px-6 py-3 font-medium">Category</th>
                 <th scope="col" class="px-6 py-3 font-medium">Published At</th>
                 <th scope="col" class="px-6 py-3 font-medium">Actions</th>
+                <th scope="col" class="px-6 py-3 font-medium">Image</th>
             </tr>
         </thead>
 
@@ -120,6 +121,13 @@
                        class="text-blue-600 hover:underline">
                        View
                     </a>
+                </td>
+                <td class="px-6 py-4">
+                    @if($post->image)
+                        <img src="{{ asset('storage/'.$post->image) }}" alt="{{ $post->title }}" class="w-16 h-16 object-cover rounded">
+                    @else
+                        <img src="{{ asset('images/preview.jpg') }}" alt="Image preview" class="w-16 h-16 object-cover rounded">
+                    @endif
                 </td>
             </tr>
         @empty

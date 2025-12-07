@@ -1,9 +1,9 @@
 <x-dashboard-layout>
-    <h1 class="text-xl font-bold mb-4">Data Posts</h1>
+    <h1 class="text-xl font-bold mb-4">Data Categories</h1>
 
-    <a href="/dashboard/posts/create"
+    <a href="/dashboard/categories/create"
        class="bg-blue-500 text-white px-3 py-2 rounded">
-        + Tambah Post
+        + Tambah Category
     </a>
 
     @include('partials.alert-success')
@@ -11,18 +11,18 @@
     <table class="mt-4 w-full border">
         <tr class="bg-gray-100">
             <th class="border p-2">#</th>
-            <th class="border p-2">Judul</th>
+            <th class="border p-2">Nama</th>
             <th class="border p-2">Aksi</th>
         </tr>
 
-        @foreach($posts as $post)
+        @foreach($categories as $cat)
         <tr>
             <td class="border p-2">{{ $loop->iteration }}</td>
-            <td class="border p-2">{{ $post->title }}</td>
+            <td class="border p-2">{{ $cat->name }}</td>
             <td class="border p-2">
-                <a href="/dashboard/posts/{{ $post->id }}/edit" class="text-blue-500">Edit</a> |
+                <a href="/dashboard/categories/{{ $cat->id }}/edit" class="text-blue-500">Edit</a> |
 
-                <form action="/dashboard/posts/{{ $post->id }}" method="POST" class="inline">
+                <form action="/dashboard/categories/{{ $cat->id }}" method="POST" class="inline">
                     @csrf
                     @method('delete')
                     <button class="text-red-500" onclick="return confirm('Hapus data?')">
@@ -34,4 +34,3 @@
         @endforeach
     </table>
 </x-dashboard-layout>
-
